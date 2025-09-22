@@ -1,5 +1,6 @@
 package chess;
-
+import java.util.HashMap;
+import java.util.Map;
 /**
  * Represents moving a chess piece on a chessboard
  * <p>
@@ -8,12 +9,12 @@ package chess;
  */
 public class ChessMove {
     ChessPosition startPosition;
-    ChessPosition endPositon;
+    ChessPosition endPosition;
     ChessPiece.PieceType promotionPiece;
     public ChessMove(ChessPosition startPosition, ChessPosition endPosition,
                      ChessPiece.PieceType promotionPiece) {
         this.startPosition = startPosition;
-        this.endPositon = endPosition;
+        this.endPosition = endPosition;
         this.promotionPiece = promotionPiece;
     }
 
@@ -28,7 +29,7 @@ public class ChessMove {
      * @return ChessPosition of ending location
      */
     public ChessPosition getEndPosition() {
-        return endPositon;
+        return endPosition;
     }
 
     /**

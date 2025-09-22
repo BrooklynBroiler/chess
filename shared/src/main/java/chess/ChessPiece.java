@@ -1,6 +1,9 @@
 package chess;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 /**
  * Represents a single chess piece
@@ -9,8 +12,14 @@ import java.util.Collection;
  * signature of the existing methods.
  */
 public class ChessPiece {
-
+    ChessGame.TeamColor pieceColor;
+    ChessPiece.PieceType pieceType;
+    Map<PieceType, PieceMovesCalculator> calcMap;
     public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
+        this.pieceColor = pieceColor;
+        this.pieceType = type;
+        calcMap = new HashMap<>();
+        calcMap.put(ChessPiece.PieceType.KING, new KingMovesCalculator());
     }
 
     /**
@@ -29,14 +38,14 @@ public class ChessPiece {
      * @return Which team this chess piece belongs to
      */
     public ChessGame.TeamColor getTeamColor() {
-        throw new RuntimeException("Not implemented");
+        return pieceColor;
     }
 
     /**
      * @return which type of chess piece this piece is
      */
     public PieceType getPieceType() {
-        throw new RuntimeException("Not implemented");
+        return pieceType;
     }
 
     /**
@@ -47,6 +56,6 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-        throw new RuntimeException("Not implemented");
+        return calcMap.get(board.getPiece(myPosition).pieceType).pieceMoves(board, myPosition);
     }
 }
