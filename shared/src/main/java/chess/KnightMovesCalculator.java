@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class KingMovesCalculator implements PieceMovesCalculator{
+public class KnightMovesCalculator implements PieceMovesCalculator{
     @Override
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition position) {
         Collection<ChessMove>moves = new ArrayList<>();
-        int[][]kingMoves = {
-                {1,1}, {1,0}, {0,1},{1,-1}, {-1,1}, {0,-1}, {-1,0}, {-1,-1}
+        int[][]knightMoves = {
+                {2,1}, {2,-1}, {1,2},{1,-2}, {-2,1}, {-2, -1}, {-1, 2}, {-1,-2}
         };
-        for (int[] move : kingMoves){
+        for (int[] move : knightMoves){
             int nRow = position.getRow() + move[0];
             int nCol = position.getColumn() + move[1];
             ChessPosition newPos = new ChessPosition(nRow, nCol);
@@ -20,9 +20,9 @@ public class KingMovesCalculator implements PieceMovesCalculator{
                 moves.add(possibleMove);
             }
         }
-
         return moves;
     }
+
     private boolean isOutOfBounds(ChessMove move){
         return move.endPosition.getRow() < 1 || move.endPosition.getColumn() < 1 || move.endPosition.getRow() > 8 || move.endPosition.getColumn() > 8;
     }

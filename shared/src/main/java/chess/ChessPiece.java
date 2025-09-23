@@ -1,9 +1,6 @@
 package chess;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Represents a single chess piece
@@ -20,6 +17,7 @@ public class ChessPiece {
         this.pieceType = type;
         calcMap = new HashMap<>();
         calcMap.put(ChessPiece.PieceType.KING, new KingMovesCalculator());
+        calcMap.put(PieceType.KNIGHT, new KnightMovesCalculator());
     }
 
     /**
@@ -57,5 +55,21 @@ public class ChessPiece {
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         return calcMap.get(board.getPiece(myPosition).pieceType).pieceMoves(board, myPosition);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ChessPiece that)) {
+            return false;
+        }
+        return pieceColor == that.pieceColor && pieceType == that.pieceType && Objects.equals(calcMap, that.calcMap);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pieceColor, pieceType, calcMap);
     }
 }
