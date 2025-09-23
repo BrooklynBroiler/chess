@@ -18,6 +18,7 @@ public class ChessPiece {
         calcMap = new HashMap<>();
         calcMap.put(ChessPiece.PieceType.KING, new KingMovesCalculator());
         calcMap.put(PieceType.KNIGHT, new KnightMovesCalculator());
+        calcMap.put(PieceType.ROOK, new RookMovesCalculator());
     }
 
     /**
