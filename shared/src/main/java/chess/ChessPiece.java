@@ -20,7 +20,8 @@ public class ChessPiece {
         calcMap.put(PieceType.KNIGHT, new KnightMovesCalculator());
         calcMap.put(PieceType.ROOK, new RookMovesCalculator());
         calcMap.put(PieceType.BISHOP, new BishopMovesCalculator());
-
+        calcMap.put(PieceType.QUEEN, new QueenMovesCalculator());
+        calcMap.put(PieceType.PAWN, new PawnMovesCalculator());
     }
 
     /**
@@ -68,11 +69,11 @@ public class ChessPiece {
         if (!(o instanceof ChessPiece that)) {
             return false;
         }
-        return pieceColor == that.pieceColor && pieceType == that.pieceType && Objects.equals(calcMap, that.calcMap);
+        return pieceColor == that.pieceColor && pieceType == that.pieceType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pieceColor, pieceType, calcMap);
+        return Objects.hash(pieceColor, pieceType);
     }
 }
