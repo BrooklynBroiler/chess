@@ -9,16 +9,20 @@ import java.util.Collection;
  * signature of the existing methods.
  */
 public class ChessGame {
-
+        TeamColor teamColor;
+        ChessBoard theBoard;
+        Collection<ChessMove> moves;
     public ChessGame() {
-
+        this.teamColor = TeamColor.WHITE;
+        this.theBoard = new ChessBoard();
+        theBoard.resetBoard();
     }
 
     /**
      * @return Which team's turn it is
      */
     public TeamColor getTeamTurn() {
-        throw new RuntimeException("Not implemented");
+        return teamColor;
     }
 
     /**
@@ -27,7 +31,7 @@ public class ChessGame {
      * @param team the team whose turn it is
      */
     public void setTeamTurn(TeamColor team) {
-        throw new RuntimeException("Not implemented");
+        teamColor = team;
     }
 
     /**
@@ -106,5 +110,21 @@ public class ChessGame {
      */
     public ChessBoard getBoard() {
         throw new RuntimeException("Not implemented");
+    }
+
+//
+    public ChessPosition findKingPosition(TeamColor teamColor, ChessBoard board){
+        ChessPosition kingPos = null;
+        for (int row = 1; row < 9; row ++){
+            for (int col = 1; col < 9; col++){
+                kingPos = new ChessPosition(row, col);
+                if (board.getPiece(kingPos) != null){
+                    if(board.getPiece(kingPos).getTeamColor().equals(teamColor) && board.getPiece(kingPos).pieceType.equals(ChessPiece.PieceType.KING)){
+                        return kingPos;
+                    }
+                }
+            }
+        }
+        return kingPos;
     }
 }
