@@ -100,7 +100,7 @@ public class ChessGame {
      * @param board the new board to use
      */
     public void setBoard(ChessBoard board) {
-        throw new RuntimeException("Not implemented");
+        theBoard = board;
     }
 
     /**
@@ -109,10 +109,10 @@ public class ChessGame {
      * @return the chessboard
      */
     public ChessBoard getBoard() {
-        throw new RuntimeException("Not implemented");
+        return theBoard;
     }
 
-//
+// Returns the position of the King of the team given
     public ChessPosition findKingPosition(TeamColor teamColor, ChessBoard board){
         ChessPosition kingPos = null;
         for (int row = 1; row < 9; row ++){
@@ -126,5 +126,14 @@ public class ChessGame {
             }
         }
         return kingPos;
+    }
+//    changes whose turn it is
+    public void changeTeam(){
+        if (teamColor.equals(TeamColor.WHITE)){
+            setTeamTurn(TeamColor.BLACK);
+        }
+        else{
+            setTeamTurn(TeamColor.WHITE);
+        }
     }
 }
