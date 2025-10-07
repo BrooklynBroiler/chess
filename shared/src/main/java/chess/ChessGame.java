@@ -2,6 +2,8 @@ package chess;
 
 import java.util.Collection;
 import java.util.ArrayList;
+import java.util.Objects;
+
 /**
  * For a class that can manage a chess game, making moves on a board
  * <p>
@@ -142,7 +144,17 @@ public class ChessGame {
      * @return True if the specified team is in stalemate, otherwise false
      */
     public boolean isInStalemate(TeamColor teamColor) {
-        throw new RuntimeException("Not implemented");
+        Collection<ChessMove> validMoves = new ArrayList<>();
+        for(int row = 1; row < 9; row ++){
+           for (int column = 1; column < 9; column++){
+               ChessPosition newPosition = new ChessPosition(row, column);
+               if (theBoard.getPiece(newPosition) != null && theBoard.getPiece(newPosition).getTeamColor().equals(teamColor)){
+                   Collection<ChessMove> moves = validMoves(newPosition);
+                   validMoves.addAll(moves);
+               }
+           }
+       }
+       return validMoves.isEmpty() && !isInCheck(teamColor);
     }
 
     /**
@@ -211,5 +223,21 @@ public Collection<ChessPosition> enemyMoveEndPositions(TeamColor teamColor, Ches
         else{
             setTeamTurn(TeamColor.WHITE);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ChessGame chessGame)) {
+            return false;
+        }
+        return teamColor == chessGame.teamColor && Objects.equals(theBoard, chessGame.theBoard) && Objects.equals(moves, chessGame.moves);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(teamColor, theBoard, moves);
     }
 }
