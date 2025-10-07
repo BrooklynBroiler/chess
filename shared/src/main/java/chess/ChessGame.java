@@ -1,7 +1,7 @@
 package chess;
 
 import java.util.Collection;
-
+import java.util.ArrayList;
 /**
  * For a class that can manage a chess game, making moves on a board
  * <p>
@@ -111,7 +111,21 @@ public class ChessGame {
     public ChessBoard getBoard() {
         return theBoard;
     }
-
+public Collection<ChessPosition> enemyMoveEndPositions(TeamColor teamColor, ChessBoard board){
+        Collection<ChessPosition> endPositions = new ArrayList<>();
+        for (int row = 1; row < 9; row++){
+            for(int column = 1; column < 9; column ++){
+                ChessPosition newPosition = new ChessPosition(row, column);
+                if(board.getPiece(newPosition) != null && !board.getPiece(newPosition).pieceColor.equals(teamColor)){
+                    Collection<ChessMove> moves = board.getPiece(newPosition).pieceMoves(board,newPosition);
+                    for(ChessMove move : moves){
+                        endPositions.add(move.endPosition);
+                    }
+                }
+            }
+        }
+        return endPositions;
+}
 // Returns the position of the King of the team given
     public ChessPosition findKingPosition(TeamColor teamColor, ChessBoard board){
         ChessPosition kingPos = null;
