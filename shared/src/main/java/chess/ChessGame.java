@@ -127,6 +127,17 @@ public class ChessGame {
         }
         return kingPos;
     }
+    public void makeMoveCopy(ChessMove move, ChessBoard board){
+        if (board.getPiece(move.startPosition).pieceType.equals(ChessPiece.PieceType.PAWN)&& (move.endPosition.getRow() == 1 || move.endPosition.getRow() == 8)){
+            ChessPiece promotionPiece = new ChessPiece(board.getPiece(move.startPosition).getTeamColor(), move.promotionPiece);
+            board.addPiece(move.endPosition, promotionPiece);
+            board.addPiece(move.startPosition, null);
+        }
+        else{
+            board.addPiece(move.endPosition, board.getPiece(move.startPosition));
+            board.addPiece(move.startPosition, null);
+        }
+    }
 //    changes whose turn it is
     public void changeTeam(){
         if (teamColor.equals(TeamColor.WHITE)){
