@@ -129,15 +129,6 @@ public class PawnMovesCalculator implements PieceMovesCalculator {
         return !board.getPiece(move.endPosition).pieceColor.equals(board.getPiece(move.startPosition).pieceColor);
     }
 
-    private boolean isValidMove(ChessBoard board, ChessMove move) {
-        if (isOutOfBounds(move)) {
-            return false;
-        } else if (board.getPiece(move.endPosition) != null) {
-            return isEnemyPiece(board, move);
-        }
-        return true;
-    }
-
     private void addPromotionMoves(ChessMove move, Collection<ChessMove> moves){
         ChessPosition startPosition = move.startPosition;
         ChessPosition endPosition = move.endPosition;

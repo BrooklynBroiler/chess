@@ -24,10 +24,14 @@ public class KingMovesCalculator implements PieceMovesCalculator{
         return moves;
     }
     private boolean isOutOfBounds(ChessMove move){
-        return move.endPosition.getRow() < 1 || move.endPosition.getColumn() < 1 || move.endPosition.getRow() > 8 || move.endPosition.getColumn() > 8;
+        int row = move.endPosition.getRow();
+        int col = move.endPosition.getColumn();
+        return row < 1 || col < 1 || row > 8 || col > 8;
     }
     private boolean isEnemyPiece(ChessBoard board, ChessMove move){
-        return !board.getPiece(move.endPosition).pieceColor.equals(board.getPiece(move.startPosition).pieceColor);
+        ChessPiece pieceOne= board.getPiece(move.endPosition);
+        ChessPiece pieceTwo = board.getPiece(move.startPosition);
+        return !pieceOne.pieceColor.equals(pieceTwo.pieceColor);
     }
     private boolean isValidMove(ChessBoard board, ChessMove move){
         if (isOutOfBounds(move)){
